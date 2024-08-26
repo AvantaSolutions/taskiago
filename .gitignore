@@ -1,0 +1,6 @@
+.angular/
+.firebase/
+node_modules/
+www/
+DO NOT COMMIT ME.ts
+android/

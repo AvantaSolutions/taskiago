@@ -1,0 +1,7 @@
+{
+  "name": "taskiago",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

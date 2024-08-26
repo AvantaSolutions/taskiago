@@ -1,0 +1,5 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "com.avantamarketing.taskiago",
+                 "sha256_cert_fingerprints": ["FD:DA:53:DF:6D:2A:51:16:42:70:F1:FD:A5:DE:64:3A:FE:3D:D8:57:46:FF:4A:B7:E2:05:2A:35:9B:AC:70:15"] }
+  }]
