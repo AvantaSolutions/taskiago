@@ -24,7 +24,6 @@ export class AppComponent {
     constructor( private _ngZone: NgZone ) {
         App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
             this._ngZone.run(() => {
-                console.log('tttttttttttttt')
                 const slug = event.url.split(".app").pop();
 
                 if (slug) {
@@ -46,9 +45,6 @@ export class AppComponent {
 
         App.addListener('appStateChange', (state) => {
             if (state.isActive) {
-                console.log('started or restarted')
-                console.log("USER", this.authService.currentUser())
-                console.log("LS", localStorage.getItem('sb-eflngwfofosewlawxvfn-auth-token'))
                 if (this.authService.currentUser() === null && localStorage.getItem('sb-eflngwfofosewlawxvfn-auth-token') !== null) {
                     this.router.navigateByUrl('/home/todo')
                 }

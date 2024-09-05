@@ -9,6 +9,50 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      tb_household_members: {
+        Row: {
+          household_id: number;
+          user_id: string;
+        };
+        Insert: {
+          household_id: number;
+          user_id?: string;
+        };
+        Update: {
+          household_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "tb_household_members_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "tb_profiles";
+            referencedColumns: ["user_id"];
+          },
+        ];
+      };
+      tb_households: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          household_id: number;
+          name: string;
+        };
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          household_id?: number;
+          name: string;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          household_id?: number;
+          name?: string;
+        };
+        Relationships: [];
+      };
       tb_items: {
         Row: {
           completed: string | null;
@@ -47,11 +91,41 @@ export type Database = {
           },
         ];
       };
+      tb_profiles: {
+        Row: {
+          avatar_img: string | null;
+          display_name: string | null;
+          email: string | null;
+          user_id: string;
+        };
+        Insert: {
+          avatar_img?: string | null;
+          display_name?: string | null;
+          email?: string | null;
+          user_id?: string;
+        };
+        Update: {
+          avatar_img?: string | null;
+          display_name?: string | null;
+          email?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "tb_profiles_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       tb_tags: {
         Row: {
           color: string;
           created_at: string;
           created_by: string;
+          households: number[] | null;
           name: string;
           tag_id: number;
         };
@@ -59,6 +133,7 @@ export type Database = {
           color: string;
           created_at?: string;
           created_by?: string;
+          households?: number[] | null;
           name: string;
           tag_id?: number;
         };
@@ -66,17 +141,58 @@ export type Database = {
           color?: string;
           created_at?: string;
           created_by?: string;
+          households?: number[] | null;
           name?: string;
           tag_id?: number;
         };
         Relationships: [];
+      };
+      tb_user_items: {
+        Row: {
+          id: number;
+          item_id: number;
+          user_id: string;
+        };
+        Insert: {
+          id?: number;
+          item_id: number;
+          user_id?: string;
+        };
+        Update: {
+          id?: number;
+          item_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "tb_user_items_item_id_fkey";
+            columns: ["item_id"];
+            isOneToOne: false;
+            referencedRelation: "tb_items";
+            referencedColumns: ["item_id"];
+          },
+          {
+            foreignKeyName: "tb_user_items_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      get_household_for_authenticated_user: {
+        Args: Record<PropertyKey, never>;
+        Returns: number[];
+      };
+      get_items_for_authenticated_user: {
+        Args: Record<PropertyKey, never>;
+        Returns: number[];
+      };
     };
     Enums: {
       [_ in never]: never;
@@ -171,10 +287,46 @@ export type Enums<
 
 // Schema: public
 // Tables
+export type TbHouseholdMembers =
+  Database["public"]["Tables"]["tb_household_members"]["Row"];
+export type InsertTbHouseholdMembers =
+  Database["public"]["Tables"]["tb_household_members"]["Insert"];
+export type UpdateTbHouseholdMembers =
+  Database["public"]["Tables"]["tb_household_members"]["Update"];
+
+export type TbHouseholds = Database["public"]["Tables"]["tb_households"]["Row"];
+export type InsertTbHouseholds =
+  Database["public"]["Tables"]["tb_households"]["Insert"];
+export type UpdateTbHouseholds =
+  Database["public"]["Tables"]["tb_households"]["Update"];
+
 export type TbItems = Database["public"]["Tables"]["tb_items"]["Row"];
 export type InsertTbItems = Database["public"]["Tables"]["tb_items"]["Insert"];
 export type UpdateTbItems = Database["public"]["Tables"]["tb_items"]["Update"];
 
+export type TbProfiles = Database["public"]["Tables"]["tb_profiles"]["Row"];
+export type InsertTbProfiles =
+  Database["public"]["Tables"]["tb_profiles"]["Insert"];
+export type UpdateTbProfiles =
+  Database["public"]["Tables"]["tb_profiles"]["Update"];
+
 export type TbTags = Database["public"]["Tables"]["tb_tags"]["Row"];
 export type InsertTbTags = Database["public"]["Tables"]["tb_tags"]["Insert"];
 export type UpdateTbTags = Database["public"]["Tables"]["tb_tags"]["Update"];
+
+export type TbUserItems = Database["public"]["Tables"]["tb_user_items"]["Row"];
+export type InsertTbUserItems =
+  Database["public"]["Tables"]["tb_user_items"]["Insert"];
+export type UpdateTbUserItems =
+  Database["public"]["Tables"]["tb_user_items"]["Update"];
+
+// Functions
+export type ArgsGetHouseholdForAuthenticatedUser =
+  Database["public"]["Functions"]["get_household_for_authenticated_user"]["Args"];
+export type ReturnTypeGetHouseholdForAuthenticatedUser =
+  Database["public"]["Functions"]["get_household_for_authenticated_user"]["Returns"];
+
+export type ArgsGetItemsForAuthenticatedUser =
+  Database["public"]["Functions"]["get_items_for_authenticated_user"]["Args"];
+export type ReturnTypeGetItemsForAuthenticatedUser =
+  Database["public"]["Functions"]["get_items_for_authenticated_user"]["Returns"];

@@ -1,0 +1,2 @@
+supabase gen types typescript --project-id eflngwfofosewlawxvfn > .\src\app\shared\types\supabase.ts
+npx better-supabase-types -i .\src\app\shared\types\supabase.ts -o .\src\app\shared\types\database.ts
