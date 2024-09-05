@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent,IonFab, IonFabButton, IonHeader, IonIcon, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { SharedService } from 'src/app/shared/_data-access/shared.service';
 import { todoComponent } from './components/todo-list.component';
-import { TodoModalComponent } from './components/create-todo.component';
+import { TodoModalComponent } from './components/create-todo.modal';
 
 
 @Component({

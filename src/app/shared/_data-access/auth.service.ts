@@ -1,8 +1,8 @@
 import { computed, inject, Injectable, NgZone, signal } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'
-import { createClient, SupabaseClient, User } from '@supabase/supabase-js'
-import { BehaviorSubject, defer, delay, distinctUntilChanged, filter, from } from 'rxjs';
+import { createClient, PostgrestSingleResponse, SupabaseClient, User } from '@supabase/supabase-js'
+import { BehaviorSubject, defer, delay, distinctUntilChanged, filter, from, map } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import { SupabaseService } from './supabase.service';
 import { getPlatforms} from '@ionic/angular'
@@ -52,16 +52,6 @@ export class AuthService {
             const returnUrl = this.route.snapshot.queryParams['returnUrl'];
             this.router.navigateByUrl(!!returnUrl ? returnUrl : '/home/todo')
         });
-    }
-
-    login(email: string) {
-        return from(
-            defer(() => 
-                this.supabase.auth.signInWithOtp({
-                    email
-                })
-            )
-        );
     }
 
     logout() {
