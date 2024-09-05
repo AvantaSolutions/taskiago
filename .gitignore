@@ -5,3 +5,4 @@ www/
 DO NOT COMMIT ME.ts
 android/
 package-lock.json
+src/environments/environment.ts

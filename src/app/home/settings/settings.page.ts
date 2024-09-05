@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonSelect,IonButton, IonSelectOption  } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonSelect,IonButton, IonSelectOption,  IonAvatar, IonLabel, IonIcon  } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/shared/_data-access/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { chevronForward, chevronForwardOutline } from 'ionicons/icons';
+import { SharedService } from 'src/app/shared/_data-access/shared.service';
 
 @Component({
     selector: 'app-settings',
@@ -22,8 +25,14 @@ import { Router } from '@angular/router';
         </ion-header>
         <section [formGroup]="settingsForm">
             <ion-item>
+                <ion-avatar slot="start">
+                    <img alt="Silhouette of a person's head" [src]="profilePicture()" />
+                </ion-avatar>
+                <ion-label>Profile</ion-label>              
+            </ion-item>
+            <ion-item (click)="navigate('household')">
                 Household
-                <ion-button slot="end">chevron_right</ion-button>
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
             </ion-item>
             <ion-item>
                 <ion-select label="Start of Week" interface="popover" formControlName="startOfWeek" required>
@@ -40,7 +49,7 @@ import { Router } from '@angular/router';
     styles: ``,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [IonContent, IonHeader, IonTitle, IonButton, IonToolbar, IonItem, IonSelect, IonSelectOption, CommonModule, ReactiveFormsModule, FormsModule]
+    imports: [IonContent, IonHeader, IonAvatar, IonLabel ,IonTitle, IonButton, IonToolbar, IonItem, IonIcon, IonSelect, IonSelectOption, CommonModule, ReactiveFormsModule, FormsModule]
 })
 export default class SettingsPage {
     public authService = inject(AuthService);
@@ -49,6 +58,19 @@ export default class SettingsPage {
     settingsForm = this.fb.nonNullable.group({
         startOfWeek: [0]
     })
+    profilePicture = computed(() => {
+        if (this.authService.currentUser() === null || this.authService.currentUser() === undefined) return 'https://ionicframework.com/docs/img/demos/avatar.svg'
+        const avatarUrl = this.authService.currentUser()?.user_metadata['avatar_url'];
+        return !!avatarUrl ? avatarUrl : 'https://ionicframework.com/docs/img/demos/avatar.svg'
+    })
+
+    constructor() {
+        addIcons({ chevronForwardOutline})
+    }
+
+    navigate(destination: string) {
+        this.router.navigate(['/home/settings/'+destination])
+    }
 
     logout() {
         this.authService.logout();
