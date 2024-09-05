@@ -12,7 +12,7 @@ import { SharedService } from '../shared/_data-access/shared.service';
     template: `
     <ion-tabs>
         <ion-tab-bar slot="bottom">
-            <ion-tab-button tab="todo">
+            <ion-tab-button tab="todos">
                 <ion-icon name="checkbox-outline"></ion-icon>
                 Checklist
             </ion-tab-button>

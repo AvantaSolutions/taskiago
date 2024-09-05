@@ -16,7 +16,7 @@ import { TodoDetailComponent } from './components/todo-detail.component';
             <ion-toolbar style="{{tagColor$ | async}}">
             
                 <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/home"></ion-back-button>
+                    <ion-back-button defaultHref="/home/todos"></ion-back-button>
                 </ion-buttons>
                 <ion-title>{{selectedTodo.label}}</ion-title>
             </ion-toolbar>
@@ -26,7 +26,7 @@ import { TodoDetailComponent } from './components/todo-detail.component';
             <ion-header collapse="condense">
                 <ion-toolbar>
                     <ion-buttons slot="start">
-                        <ion-back-button defaultHref="/home"></ion-back-button>
+                        <ion-back-button defaultHref="/home/todos"></ion-back-button>
                     </ion-buttons>
                     <ion-title size="large">{{selectedTodo.label}}</ion-title>
                 </ion-toolbar>

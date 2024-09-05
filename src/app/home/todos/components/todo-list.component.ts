@@ -39,7 +39,7 @@ interface Todos {
                             <span class="absolute left-0 h-full w-6 rounded-l-lg" [style.background-color]="todo.color"></span>
                             <span class="w-8"></span> 
                             <ion-icon name="square-outline" class="max-w-7 pr-2" (click)="markAsComplete(todo)"/> 
-                            <ion-label [class.line-through]="todo.completed !== null" (click)="router.navigate(['/todo-detail', todo.item_id])">{{todo.label}}</ion-label>
+                            <ion-label [class.line-through]="todo.completed !== null" (click)="router.navigate(['/home/todos', todo.item_id])">{{todo.label}}</ion-label>
                         </ion-item>
                     </ion-col>
                 </ion-row>
@@ -72,7 +72,7 @@ interface Todos {
                         <ion-item class="relative border rounded-lg no-padding shadow-sm" style="--background: rgb(243,243,243)">
                             <span class="absolute left-0 h-full w-6 rounded-l-lg" [style.background-color]="todo.color" style="filter: grayscale(0.5)"></span>
                             <span class="w-8"></span> 
-                            <ion-label [class.line-through]="todo.completed !== null" (click)="router.navigate(['/todo-detail', todo.item_id])">{{todo.label}}</ion-label>
+                            <ion-label [class.line-through]="todo.completed !== null" (click)="router.navigate(['/home/todos', todo.item_id])">{{todo.label}}</ion-label>
                         </ion-item>
                     </ion-col>
                 </ion-row>

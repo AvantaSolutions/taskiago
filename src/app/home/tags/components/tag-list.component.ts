@@ -26,7 +26,7 @@ interface Todo {
                 <ion-col>
                     <ion-item class="relative border rounded-lg no-padding">
                         <span class="absolute left-0 h-full w-6 rounded-l-lg" [style.background-color]="tag.color"></span>
-                        <ion-label (click)="router.navigate(['/tag-detail', tag.tag_id])" class="pl-8 ">{{tag.name}}</ion-label>
+                        <ion-label (click)="router.navigate(['/home/tags', tag.tag_id])" class="pl-8 ">{{tag.name}}</ion-label>
                     </ion-item>
                 </ion-col>
             </ion-row>

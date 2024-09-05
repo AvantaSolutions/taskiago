@@ -87,6 +87,6 @@ export class TagDetailComponent implements OnDestroy {
 
     deleteTodo(selectedTodo: TbTags) {
         this.tagsService.delete$.next(selectedTodo.tag_id);
-        this.router.navigate(['/home'])
+        this.router.navigate(['/home/tags'])
     }
 }

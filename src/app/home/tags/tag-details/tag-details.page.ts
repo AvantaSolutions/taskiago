@@ -16,7 +16,7 @@ import { TagDetailComponent } from './components/tag-detail.component';
             <ion-toolbar style="--background: {{selectedTag.color}}; --color: {{selectedTag.textColor}}">
             
                 <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/home"></ion-back-button>
+                    <ion-back-button defaultHref="/home/tags"></ion-back-button>
                 </ion-buttons>
                 <ion-title>{{selectedTag.name}}</ion-title>
             </ion-toolbar>
@@ -26,7 +26,7 @@ import { TagDetailComponent } from './components/tag-detail.component';
             <ion-header collapse="condense">
                 <ion-toolbar>
                     <ion-buttons slot="start">
-                        <ion-back-button defaultHref="/home"></ion-back-button>
+                        <ion-back-button defaultHref="/home/tags"></ion-back-button>
                     </ion-buttons>
                     <ion-title size="large">{{selectedTag.name}}</ion-title>
                 </ion-toolbar>

@@ -144,6 +144,6 @@ export class TodoDetailComponent implements OnDestroy {
 
     deleteTodo(selectedTodo: TbItems) {
         this.todosService.delete$.next(selectedTodo.item_id);
-        this.router.navigate(['/home'])
+        this.router.navigate(['/home/todos'])
     }
 }

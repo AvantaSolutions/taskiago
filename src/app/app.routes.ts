@@ -13,26 +13,54 @@ export const routes: Routes = [
             pathMatch: 'full'
         },
         {
-            path: 'todo',
-            loadComponent: () => import('./home/todos/todos.page')
+            path: 'todos',
+            children: [
+                {
+                    path: '',
+                    loadComponent: () => import('./home/todos/todos.page')
+                },
+                {
+                    path: ':id',
+                    loadComponent: () => import('./home/todos/todo-details/todo-details.page')
+                }
+            ]
           },
           {
             path: 'settings',
-            loadComponent: () => import('./home/settings/settings.page')
+            children: [
+                {
+                    path: '',
+                    loadComponent: () => import('./home/settings/settings.page'),
+                },
+                {
+                    path: 'household',
+                    children: [
+                        {
+                            path: '',
+                            loadComponent: () => import('./home/settings/households/household.page'),
+                        },
+                        {
+                            path: ':id',
+                            loadComponent: () => import('./home/settings/households/components/household-detail.page'),
+                        }
+                    ]
+                }
+            ]
           },
           {
             path: 'tags',
-            loadComponent: () => import('./home/tags/tags.page')
+            children: [
+                {
+                    path: '',
+                    loadComponent: () => import('./home/tags/tags.page')
+                },
+                {
+                    path: ':id',
+                    loadComponent: () => import('./home/tags/tag-details/tag-details.page')
+                }
+            ]
           },
     ]
-  },
-  {
-    path: 'todo-detail/:id',
-    loadComponent: () => import('./home/todos/todo-details/todo-details.page')
-  },
-  {
-    path: 'tag-detail/:id',
-    loadComponent: () => import('./home/tags/tag-details/tag-details.page')
   },
   {
     path: 'login',
