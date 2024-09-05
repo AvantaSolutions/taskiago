@@ -61,7 +61,7 @@ import { TbHouseholds } from 'src/app/shared/types/database';
                         <ion-item-sliding>
                             <ion-item>
                                 <ion-avatar slot="start">
-                                    <img alt="Silhouette of a person's head" [src]="'https://ionicframework.com/docs/img/demos/avatar.svg'" />
+                                    <img alt="Silhouette of a person's head" [src]="member.avatar_img" />
                                 </ion-avatar>
                                 <ion-label>{{member.display_name}}</ion-label>
                             </ion-item>
