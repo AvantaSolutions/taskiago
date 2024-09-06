@@ -50,7 +50,7 @@ export class AuthService {
         toObservable(this.currentUser).pipe(distinctUntilChanged(),takeUntilDestroyed(), delay(300)).subscribe(user => {
             if (user === null) return
             const returnUrl = this.route.snapshot.queryParams['returnUrl'];
-            this.router.navigateByUrl(!!returnUrl ? returnUrl : '/home/todo')
+            this.router.navigateByUrl(!!returnUrl ? returnUrl : '/home/todos')
         });
     }
 

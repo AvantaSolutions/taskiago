@@ -12,23 +12,13 @@ import { TodoDetailComponent } from './components/todo-detail.component';
     selector: 'app-todo-details',
     template: `
     @if(selectedTodo$ | async; as selectedTodo) {
-        <ion-header [translucent]="true">
-            <ion-toolbar style="{{tagColor$ | async}}">
-            
-                <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/home/todos"></ion-back-button>
-                </ion-buttons>
-                <ion-title>{{selectedTodo.label}}</ion-title>
-            </ion-toolbar>
-        </ion-header>
-
         <ion-content [fullscreen]="true">
-            <ion-header collapse="condense">
-                <ion-toolbar>
+            <ion-header>
+            <ion-toolbar style="{{tagColor$ | async}}">
                     <ion-buttons slot="start">
                         <ion-back-button defaultHref="/home/todos"></ion-back-button>
                     </ion-buttons>
-                    <ion-title size="large">{{selectedTodo.label}}</ion-title>
+                    <ion-title>{{selectedTodo.label}}</ion-title>
                 </ion-toolbar>
             </ion-header>
 

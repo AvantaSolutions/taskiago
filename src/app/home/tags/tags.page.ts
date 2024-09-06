@@ -8,16 +8,10 @@ import { TagModalComponent } from './components/create-tag.component';
 @Component({
     selector: 'app-tags',
     template: `
-    <ion-header [translucent]="true">
-        <ion-toolbar color="primary">
-            <ion-title>User Defined Tags</ion-title>
-        </ion-toolbar>
-    </ion-header>
-
     <ion-content [fullscreen]="true">
-        <ion-header collapse="condense">
+        <ion-header>
             <ion-toolbar color="primary">
-                <ion-title size="large">User Defined Tags</ion-title>
+                <ion-title>User Defined Tags</ion-title>
             </ion-toolbar>
         </ion-header>
 

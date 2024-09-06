@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewChild, inject } from '@angular/core';
-import { IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem, IonModal, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem, IonModal, IonSelect, IonSelectOption, IonCheckbox, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { TagsService, TbTagsWithText } from '../../../shared/_data-access/tags.service';
 import { TodosService } from '../../../shared/_data-access/todos.service';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-todo-modal',
@@ -34,6 +34,11 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
                         }
                     </ion-select>
                 </ion-item>
+                @if(!!selectedTag && selectedTag.households !== null) {
+                    <ion-item>
+                        <ion-checkbox labelPlacement="start" [formControl]="shareWithHouseholds">Share with Tag Household</ion-checkbox>
+                    </ion-item>
+                }
                 <ion-item>
                     <ion-select label="Does the Task repeat?" interface="popover" formControlName="frequency" required>
                         <ion-select-option [value]="0">Does not repeat</ion-select-option>
@@ -49,7 +54,7 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
     styles: ``,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ ReactiveFormsModule, IonModal, IonButtons, IonButton, IonItem, IonInput, IonHeader, IonTitle, IonToolbar, IonContent, IonSelect, IonSelectOption],
+    imports: [ ReactiveFormsModule, IonModal, IonButtons, IonCheckbox, IonButton, IonItem, IonInput, IonHeader, IonTitle, IonToolbar, IonContent, IonSelect, IonSelectOption],
 })
 export class TodoModalComponent {
     tagsService = inject(TagsService);
@@ -60,14 +65,25 @@ export class TodoModalComponent {
     form = this.fb.nonNullable.group({
         label: ['', Validators.required],
         tag_id: [this.todosService.filter(), Validators.required],
+        households: this.fb.control<null|number[]>(null),
         frequency: [0, Validators.required],
     })
+    shareWithHouseholds = this.fb.control(false);
 
     constructor() {
-        this.form.get('tag_id')?.valueChanges.pipe(takeUntilDestroyed()).subscribe(tag_id => this.selectedTag = this.tagsService.tags().find(tag => tag.tag_id === tag_id))
+        this.shareWithHouseholds.valueChanges.pipe(takeUntilDestroyed()).subscribe(household => {
+            console.log(household)
+            this.form.get('households')?.setValue(household === false || this.selectedTag === undefined ? null : this.selectedTag.households)
+        })
+        this.form.get('tag_id')?.valueChanges.pipe(takeUntilDestroyed()).subscribe(tag_id => {
+            this.selectedTag = this.tagsService.tags().find(tag => tag.tag_id === tag_id)
+            if (!!this.selectedTag && this.selectedTag.households !== null) {
+                this.shareWithHouseholds.setValue(true);
+            }
+        })
+      
     }
     onWillDismiss(event: Event) {
-        console.log(this.form.get('tag_id'))
         const ev = event as CustomEvent<OverlayEventDetail<string>>;
         if (ev.detail.role === 'confirm') {
             this.todosService.add$.next(this.form.getRawValue())

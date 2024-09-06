@@ -55,7 +55,7 @@ interface Todos {
             @if(todos.completed.length > 0) {
                 <ion-row (click)="showCompleted.set(!showCompleted())" class="cursor-pointer">
                     <ion-col class="ion-text-center">
-                        <ion-item-divider class="relative w-full"> 
+                        <ion-item-divider class="relative w-full" style="--background: white"> 
                             <ion-label class="w-full z-10">
                                 <ion-icon [name]="showCompleted() === true ? 'eye-off' : 'eye'" class="bg-white pl-5 pr-2 -mb-[2px]"></ion-icon>
                                 <span class="bg-white pr-5">{{showCompleted() === true ? 'Hide' : 'Show'}} Completed Checklist</span>

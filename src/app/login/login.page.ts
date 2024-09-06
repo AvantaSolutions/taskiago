@@ -9,34 +9,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'app-settings',
     template: `
-    <!-- <ion-header [translucent]="true">
-        <ion-toolbar color="primary">
-            <ion-title>Login</ion-title>
-        </ion-toolbar>
-    </ion-header>
-
-    <ion-content [fullscreen]="true">
-        <ion-header collapse="condense">
-            <ion-toolbar color="primary">
-                <ion-title size="large">Login</ion-title>
-            </ion-toolbar>
-        </ion-header>
-
-        <ion-card [formGroup]="loginForm">
-            <ion-card-content>
-                <form>
-                    <ion-input type="text" label="Username" formControlName="username"></ion-input>
-
-                    <ion-input type="password" label="Password" formControlName="password">
-                        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-                    </ion-input>
-
-                    <ion-button [disabled]="form.invalid" (click)="signIn()">Login</ion-button>
-                </form>
-            </ion-card-content>
-        </ion-card>
-        
-    </ion-content> -->
     <div class="bg-white min-h-full w-screen fixed  flex flex-row z-40" >
         <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
             <div class="mx-auto w-full max-w-sm lg:w-96">
@@ -48,13 +20,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
             <div class="mt-8">
                 <div class="mt-6">
                 <div class="space-y-6" [formGroup]="loginForm">
-                    <ion-label class="text-sm font-medium text-gray-700 " (click)="out(authService.currentUser())">Username {{authService.currentUser()}}</ion-label>
-                    <ion-input type="text"  class="!mt-0 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" style="--color: black; --padding-start: 5px" formControlName="username"></ion-input>
+                    @if(authService.currentUser() !== null) {
+                        <ion-label class="text-4xl font-medium text-gray-700 ">Logging you in... </ion-label>
+                        
+                    } @else {
+                        <ion-label class="text-sm font-medium text-gray-700 ">Username </ion-label>
+                        <ion-input type="text"  class="!mt-0 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" style="--color: black; --padding-start: 5px" formControlName="username"></ion-input>
 
-                    <ion-label class="text-sm font-medium text-gray-700 ">Password</ion-label>
-                    <ion-input type="password" class="!mt-0 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" style="--color: black; --padding-start: 5px" formControlName="password" (keyup)="$event.key === 'Enter' ? signIn() : ''">
-                        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-                    </ion-input>
+                        <ion-label class="text-sm font-medium text-gray-700 ">Password</ion-label>
+                        <ion-input type="password" class="!mt-0 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" style="--color: black; --padding-start: 5px" formControlName="password" (keyup)="$event.key === 'Enter' ? signIn() : ''">
+                            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                        </ion-input>
+                    }
 
                     @if(false) {
                         <div class="flex items-center justify-between">
@@ -91,7 +68,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export default class LoginPage {
     authService = inject(AuthService);
     fb = inject(FormBuilder);
-    
     
     loginForm = this.fb.nonNullable.group({
         username: ['', Validators.required],

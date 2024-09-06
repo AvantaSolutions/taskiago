@@ -10,16 +10,10 @@ import { TodoModalComponent } from './components/create-todo.modal';
 @Component({
     selector: 'app-todo',
     template: `
-    <ion-header [translucent]="true">
-        <ion-toolbar color="primary">
-            <ion-title>Week of {{sharedService.startDate | date: 'shortDate'}}</ion-title>
-        </ion-toolbar>
-    </ion-header>
-
     <ion-content [fullscreen]="true">
-        <ion-header collapse="condense">
+        <ion-header>
             <ion-toolbar color="primary">
-                <ion-title size="large">Week of {{sharedService.startDate | date: 'shortDate'}}</ion-title>
+                <ion-title>Week of {{sharedService.startDate | date: 'shortDate'}}</ion-title>
             </ion-toolbar>
         </ion-header>
 

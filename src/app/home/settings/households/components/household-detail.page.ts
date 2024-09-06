@@ -16,17 +16,8 @@ import { TbHouseholds } from 'src/app/shared/types/database';
     selector: 'app-household-detail-page',
     template: `
     @if(selectedHousehold$ | async; as selectedHousehold) {
-        <ion-header [translucent]="true">
-            <ion-toolbar color="primary">
-                <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/home/settings/household"></ion-back-button>
-                </ion-buttons>
-                <ion-title>{{selectedHousehold.name}} - Household</ion-title>
-            </ion-toolbar>
-        </ion-header>
-
         <ion-content [fullscreen]="true">
-            <ion-header collapse="condense">
+            <ion-header>
                 <ion-toolbar color="primary">
                     <ion-buttons slot="start">
                         <ion-back-button defaultHref="/home/settings/household"></ion-back-button>

@@ -46,7 +46,7 @@ export class AppComponent {
         App.addListener('appStateChange', (state) => {
             if (state.isActive) {
                 if (this.authService.currentUser() === null && localStorage.getItem('sb-eflngwfofosewlawxvfn-auth-token') !== null) {
-                    this.router.navigateByUrl('/home/todo')
+                    this.router.navigateByUrl('/home/todos')
                 }
             }
         });

@@ -6,3 +6,4 @@ DO NOT COMMIT ME.ts
 android/
 package-lock.json
 src/environments/environment.ts
+src/environments/environment.prod.ts

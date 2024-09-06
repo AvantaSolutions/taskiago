@@ -9,7 +9,7 @@ export const routes: Routes = [
     children: [
         {
             path: '',
-            redirectTo: 'todo',
+            redirectTo: 'todos',
             pathMatch: 'full'
         },
         {
@@ -71,4 +71,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: '**',
+    loadComponent: () => import('./404.page')
+  }
 ];

@@ -11,16 +11,10 @@ import { SharedService } from 'src/app/shared/_data-access/shared.service';
 @Component({
     selector: 'app-settings',
     template: `
-    <ion-header [translucent]="true">
-        <ion-toolbar color="primary">
-            <ion-title>Settings</ion-title>
-        </ion-toolbar>
-    </ion-header>
-
     <ion-content [fullscreen]="true">
-        <ion-header collapse="condense">
+        <ion-header>
             <ion-toolbar color="primary">
-                <ion-title size="large">Settings</ion-title>
+                <ion-title>Settings</ion-title>
             </ion-toolbar>
         </ion-header>
         <section [formGroup]="settingsForm">
@@ -52,7 +46,7 @@ import { SharedService } from 'src/app/shared/_data-access/shared.service';
     imports: [IonContent, IonHeader, IonAvatar, IonLabel ,IonTitle, IonButton, IonToolbar, IonItem, IonIcon, IonSelect, IonSelectOption, CommonModule, ReactiveFormsModule, FormsModule]
 })
 export default class SettingsPage {
-    public authService = inject(AuthService);
+    authService = inject(AuthService);
     private router = inject(Router);
     private fb = inject(FormBuilder);
     settingsForm = this.fb.nonNullable.group({
