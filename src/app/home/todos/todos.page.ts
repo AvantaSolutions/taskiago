@@ -8,7 +8,7 @@ import { TodoModalComponent } from './components/create-todo.modal';
 
 
 @Component({
-    selector: 'app-todo',
+    selector: 'app-todo-page',
     template: `
     <ion-content [fullscreen]="true">
         <ion-header>
