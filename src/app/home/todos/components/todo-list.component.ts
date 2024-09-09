@@ -117,14 +117,17 @@ export class todoComponent {
                     this.todosService.update$.next({id: item.item_id, changes: {completed: null}})
                 }
             }
-            // return {active: [], completed: []};
         }
         let allTodos = todos.map(todo => ({
             ...todo,
             tag: tags.find(tag => tag.tag_id === todo.tag_id)?.name || '',
             color: tags.find(tag => tag.tag_id === todo.tag_id)?.color || ''
         }));
-        this.todoTags.set(tags.filter(tag => allTodos.find(todo => todo.tag_id === tag.tag_id) !== undefined).map(tag => ({...tag, count: allTodos.filter(todos => todos.tag_id === tag.tag_id && todos.completed === null).length})));
+        // setting the top tag bar
+        const tagsUsed = tags.filter(tag => allTodos.find(todo => todo.tag_id === tag.tag_id) !== undefined)
+        const tagsWithCount = tagsUsed.map(tag => ({...tag, count: allTodos.filter(todos => todos.tag_id === tag.tag_id && todos.completed === null).length}))
+        this.todoTags.set(tagsWithCount.filter(tag => tag.count > 0));
+        // setting any filter
         if (filter !== -1) { allTodos = allTodos.filter(todo => todo.tag_id === filter)}
         const active = allTodos.filter(todos => todos.completed === null)
         const completed = allTodos.filter(todo => todo.completed !== null && (new Date(todo.completed).getTime() > this.sharedService.startDate.getTime() || todo.frequency !== 0))
