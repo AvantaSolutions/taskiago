@@ -59,8 +59,10 @@ export type Database = {
           created_at: string;
           created_by: string;
           frequency: number | null;
+          households: number[] | null;
           item_id: number;
           label: string;
+          repeats: number;
           tag_id: number;
         };
         Insert: {
@@ -68,8 +70,10 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           frequency?: number | null;
+          households?: number[] | null;
           item_id?: number;
           label: string;
+          repeats?: number;
           tag_id: number;
         };
         Update: {
@@ -77,8 +81,10 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           frequency?: number | null;
+          households?: number[] | null;
           item_id?: number;
           label?: string;
+          repeats?: number;
           tag_id?: number;
         };
         Relationships: [
